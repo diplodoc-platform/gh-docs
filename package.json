@@ -4,19 +4,18 @@
   "version": "1.0.0",
   "dependencies": {
     "@diplodoc/cli": "^4.13.9-alpha-5",
-    "esbuild": "^0.20.1",
     "pkg": "^5.8.1"
   },
   "bin": {
     "docs": "./node_modules/@diplodoc/cli/build/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pkg ./package.json"
+    "build": "pkg ./package.json",
+    "build:dev": "pkg ./package.json -t host -o gh-docs"
   },
   "repository": {
-    "type": "arc",
-    "url": "https://a.yandex-team.ru/arc_vcs/data-ui/yfm-custom-plugins"
+    "type": "git",
+    "url": "https://github.com/diplodoc-platform/gh-docs"
   },
   "pkg": {
     "scripts": [
@@ -26,6 +25,14 @@
     ],
     "assets": [
       "./node_modules/@diplodoc/cli/assets/*"
+    ],
+    "targets": [
+      "linux-arm64",
+      "linux-x64",
+      "win-arm64",
+      "win-x64",
+      "macos-arm64",
+      "macos-x64"
     ]
   },
   "license": "MIT"

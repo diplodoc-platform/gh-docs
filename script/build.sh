@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
-#- run 'cd gh-docs; gh extension install .' to install your extension locally
-#- fill in script/build.sh with your compilation script for automated builds
-#- compile a gh-docs binary locally and run 'gh docs' to see changes
-#- run 'gh repo create' to share your extension with others
-
 set -e
 
 export NODE_ENV=production
 
-npm ci
+TAG=$1
 
-if [ "$1" == 'version' ]; then
-    npm i --registry='https://registry.npmjs.org/' @diplodoc/cli@$2
-else
-    npm i --registry='https://registry.npmjs.org/' @diplodoc/cli@latest
-fi
+echo "BUILD ${TAG}"
 
-npm run build
+npm ci --no-workspaces
+npm run build -- --no-bytecode --public-packages "*" --public --out-path dist
+
+mv dist/gh-docs-linux-x64 dist/gh-docs_${TAG}_linux-amd64
+mv dist/gh-docs-linux-arm64 dist/gh-docs_${TAG}_linux-arm64
+mv dist/gh-docs-win-x64.exe dist/gh-docs_${TAG}_windows-amd64.exe
+mv dist/gh-docs-win-arm64.exe dist/gh-docs_${TAG}_windows-arm64.exe
+mv dist/gh-docs-macos-x64 dist/gh-docs_${TAG}_darwin-amd64
+mv dist/gh-docs-macos-arm64 dist/gh-docs_${TAG}_darwin-arm64
