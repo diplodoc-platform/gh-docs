@@ -3,6 +3,12 @@
 set -e
 
 VERSION=$1
+if [[ -z "$VERSION" ]]; then
+  echo "Version expected"
+  echo "Usage:"
+  echo "npm run release 1.0.0"
+  exit 1
+fi
 
 export NODE_ENV=production
 
