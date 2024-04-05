@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@diplodoc/cli": "^4.13.9-alpha-5",
+    "@diplodoc/cli": "^4.19.3",
     "pkg": "^5.8.1"
   },
   "bin": {
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "build": "pkg ./package.json",
-    "build:dev": "pkg ./package.json -t host -o gh-docs"
+    "build:dev": "pkg ./package.json -t host -o gh-docs",
+    "release": "./script/release.sh "
   },
   "repository": {
     "type": "git",
