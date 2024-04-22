@@ -2,31 +2,18 @@
 
 set -e
 
-VERSION=$1
-if [[ -z "$VERSION" ]]; then
-  echo "Version expected"
-  echo "Usage:"
-  echo "npm run release 1.0.0"
-  exit 1
-fi
-
 export NODE_ENV=production
 
 npm i @diplodoc/cli@latest --no-workspaces
 
-CLI_VERSION=$(node -pe 'require("./package.json").dependencies["@diplodoc/cli"]')
-
-if [[ -n "$(git status -s | grep package.json)" ]]; then
-  git add package.json package-lock.json
-  git commit -m "Update cli to version $CLI_VERSION"
-  git push
+if [[ -z "$(git status -s | grep package.json)" ]]; then
+  echo "Nothing to release"
 fi
 
-if [[ -n "$(git status -s)" ]]; then
-  echo "Unable to release unstaged changes"
-  git status -s
-  exit 1
-fi
+VERSION=$(node -pe 'require("./package.json").dependencies["@diplodoc/cli"].slice(1)')
 
+git add package.json package-lock.json
+git commit -m "Update cli to version $VERSION"
+git push
 git tag v$VERSION
 git push origin v$VERSION
