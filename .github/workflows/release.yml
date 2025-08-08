@@ -10,11 +10,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: 22
           cache: 'npm'
       - uses: cli/gh-extension-precompile@v1
         with:
